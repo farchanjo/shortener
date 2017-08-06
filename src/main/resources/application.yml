@@ -1,0 +1,46 @@
+logging:
+  level:
+    root: INFO
+    br.eti.archanjo: INFO
+    org.springframework: INFO
+
+spring:
+  profiles:
+    active: default
+  application:
+    name: shortener-service
+  datasource:
+    url: jdbc:mysql://vm.services:3306/shortener?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&useTimezone=true&serverTimezone=UTC
+    username: root
+    password: q1w2e3
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  data:
+    mongodb:
+      host: vm.services
+      database: shortener
+      repositories:
+        enabled: true
+  redis:
+    database: 6
+    host: vm.services
+    port: 6379
+    timeout: 120000
+    pool:
+      max-active: 16
+      max-idle: 4
+      max-wait: -1
+
+server:
+  port: 8080
+  session:
+    cookie:
+      path: /
+      name: shortener
+    persistent: true
+  tomcat:
+    remote-ip-header: X-Forwarded-For
