@@ -27,22 +27,22 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-redis')
     compile('org.springframework.boot:spring-boot-starter-security')
     compile('org.springframework.boot:spring-boot-starter-web')
-    compile 'org.webjars:bootstrap:3.3.7-1'
-    compile 'org.webjars:jquery:3.2.1'
-    compile 'org.webjars.bower:angular:1.6.5'
-    compile 'org.webjars.bower:angular-cookies:1.6.5'
-    compile 'org.webjars.bower:angular-route:1.6.5'
-    compile 'org.webjars.bower:angular-animate:1.6.5'
-    compile 'org.webjars.bower:angular-sanitize:1.6.5'
-    compile 'org.webjars.bower:angular-touch:1.6.5'
-    compile 'org.webjars.bower:angular-resource:1.6.5'
-    compile 'org.webjars.bower:angularjs:1.6.5'
-    compile 'org.webjars.bower:angular-messages:1.6.5'
-    compile 'org.webjars.bower:angular-i18n:1.6.5'
-    compile 'org.webjars.bower:angular-moment:1.0.1'
-    compile 'org.webjars.bower:angular-ui-bootstrap-bower:2.5.0'
-    compile 'org.webjars.bower:font-awesome:4.7.0'
-    compile 'org.webjars.bower:angular-translate:2.15.2'
+    compile('org.webjars:bootstrap:3.3.7-1')
+    compile('org.webjars:jquery:3.2.1')
+    compile('org.webjars.bower:angular:1.6.5')
+    compile('org.webjars.bower:angular-cookies:1.6.5')
+    compile('org.webjars.bower:angular-route:1.6.5')
+    compile('org.webjars.bower:angular-animate:1.6.5')
+    compile('org.webjars.bower:angular-sanitize:1.6.5')
+    compile('org.webjars.bower:angular-touch:1.6.5')
+    compile('org.webjars.bower:angular-resource:1.6.5')
+    compile('org.webjars.bower:angularjs:1.6.5')
+    compile('org.webjars.bower:angular-messages:1.6.5')
+    compile('org.webjars.bower:angular-i18n:1.6.5')
+    compile('org.webjars.bower:angular-moment:1.0.1')
+    compile('org.webjars.bower:angular-ui-bootstrap-bower:2.5.0')
+    compile('org.webjars.bower:font-awesome:4.7.0')
+    compile('org.webjars.bower:angular-translate:2.15.2')
     runtime('mysql:mysql-connector-java')
     compileOnly('org.projectlombok:lombok')
 }
