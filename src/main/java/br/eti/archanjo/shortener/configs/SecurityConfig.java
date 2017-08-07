@@ -14,13 +14,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
     @Autowired
-    private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+    public SecurityConfig(CustomAuthenticationEntryPoint customAuthenticationEntryPoint) {
+        this.customAuthenticationEntryPoint = customAuthenticationEntryPoint;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/*").permitAll()
+                .antMatchers("/**").permitAll()
                 .anyRequest().fullyAuthenticated()
                 .and()
                 .formLogin()
