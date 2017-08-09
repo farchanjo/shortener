@@ -45,6 +45,7 @@ dependencies {
     compile('org.webjars.bower:angular-translate:2.15.2')
     compile('org.webjars.bower:ng-tags-input:3.1.1')
     compile('org.webjars:angular-ui-bootstrap:2.2.0')
+    compile('org.webjars.bower:angular-ui-grid:4.0.6')
     runtime('mysql:mysql-connector-java')
     compileOnly('org.projectlombok:lombok')
 }
