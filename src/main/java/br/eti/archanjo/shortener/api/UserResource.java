@@ -1,7 +1,6 @@
 package br.eti.archanjo.shortener.api;
 
 import br.eti.archanjo.shortener.constants.PathConstants;
-import br.eti.archanjo.shortener.dtos.DomainDTO;
 import br.eti.archanjo.shortener.dtos.UserDTO;
 import br.eti.archanjo.shortener.facade.UserFacade;
 import org.slf4j.Logger;
