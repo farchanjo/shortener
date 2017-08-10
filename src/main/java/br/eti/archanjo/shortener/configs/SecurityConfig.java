@@ -3,6 +3,7 @@ package br.eti.archanjo.shortener.configs;
 import br.eti.archanjo.shortener.constants.ExceptionConstants;
 import br.eti.archanjo.shortener.constants.PathConstants;
 import br.eti.archanjo.shortener.filters.CustomAuthenticationEntryPoint;
+import br.eti.archanjo.shortener.providers.SecurityProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,9 +17,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
+    private final SecurityProvider provider;
+
     @Autowired
-    public SecurityConfig(CustomAuthenticationEntryPoint customAuthenticationEntryPoint) {
+    public SecurityConfig(CustomAuthenticationEntryPoint customAuthenticationEntryPoint, SecurityProvider provider) {
         this.customAuthenticationEntryPoint = customAuthenticationEntryPoint;
+        this.provider = provider;
     }
 
     @Override
@@ -53,6 +57,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.authenticationProvider(provider);
+        auth.authenticationProvider(provider);
     }
 }
