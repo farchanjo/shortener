@@ -48,6 +48,7 @@ public class UserEntity implements Serializable {
     @Column(name = "modified")
     private Date modified;
 
+
     @PrePersist
     private void prePersist() {
         created = new Date();

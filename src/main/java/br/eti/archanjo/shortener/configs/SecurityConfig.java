@@ -1,7 +1,7 @@
 package br.eti.archanjo.shortener.configs;
 
 import br.eti.archanjo.shortener.constants.ExceptionConstants;
-import br.eti.archanjo.shortener.constants.PathContants;
+import br.eti.archanjo.shortener.constants.PathConstants;
 import br.eti.archanjo.shortener.filters.CustomAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -34,9 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(
                         (request, response, authentication) -> response.sendError(200, "logged")
                 )
-                .loginPage(PathContants.LOGIN).passwordParameter("password").usernameParameter("emailorusername").permitAll()
+                .loginPage(PathConstants.LOGIN).passwordParameter("password").usernameParameter("username").permitAll()
                 .and()
-                .logout().logoutUrl(PathContants.LOGOUT).permitAll()
+                .logout().logoutUrl(PathConstants.LOGOUT).permitAll()
                 .invalidateHttpSession(true)
                 .logoutSuccessHandler(
                         (request, response, authentication) -> response.sendError(200, "logout ok")

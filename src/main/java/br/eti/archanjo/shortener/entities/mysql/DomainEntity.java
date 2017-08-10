@@ -41,6 +41,9 @@ public class DomainEntity implements Serializable {
 
     @Column(name = "modified", nullable = false)
     private Date modified;
+    
+    @ManyToMany
+    private List<UserEntity> users;
 
     @PrePersist
     private void prePersist() {
