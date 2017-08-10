@@ -14,14 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping(path = PathConstants.SHORT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-public class ShortResource extends GenericResource {
-    private static Logger logger = LoggerFactory.getLogger(ShortResource.class);
+@RequestMapping(path = PathConstants.ROOT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+public class RootResource extends GenericResource {
+    private static Logger logger = LoggerFactory.getLogger(RootResource.class);
 
     private final ShortFacade shortFacade;
 
     @Autowired
-    public ShortResource(ShortFacade shortFacade) {
+    public RootResource(ShortFacade shortFacade) {
         this.shortFacade = shortFacade;
     }
 

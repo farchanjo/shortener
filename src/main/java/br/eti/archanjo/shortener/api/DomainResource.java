@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = PathConstants.DOMAINS, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class DomainResource extends GenericResource {
@@ -26,5 +28,10 @@ public class DomainResource extends GenericResource {
     @RequestMapping(method = RequestMethod.POST)
     public DomainDTO createDomain() throws Exception {
         return domainFacade.create(getClient());
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public List<DomainDTO> listDomain() throws Exception {
+        return null;
     }
 }
