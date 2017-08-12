@@ -22,7 +22,7 @@ public class UserFacade {
     }
 
     public UserDTO create(UserDTO userDTO, UserDTO client) throws Exception {
-        if (userDTO.getPassword() == null && userDTO.getId() != null)
+        if (userDTO.getPassword() == null && userDTO.getId() == null)
             throw new MissingArgumentException("Missing password");
 
         if (!client.getRoles().equals(Roles.ADMIN))
