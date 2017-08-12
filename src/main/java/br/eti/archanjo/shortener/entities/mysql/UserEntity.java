@@ -13,7 +13,9 @@ import java.util.Date;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Getter
 @Setter
-@Table(name = "USERS")
+@Table(name = "USERS", indexes = {
+        @Index(name = "userPassStatsIdx", columnList = "username,password,status")
+})
 @Entity(name = "USERS")
 public class UserEntity implements Serializable {
     private static final long serialVersionUID = -6046209000285746209L;
