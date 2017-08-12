@@ -32,8 +32,8 @@ public class UserResource extends GenericResource {
 
     @RequestMapping(method = RequestMethod.GET)
     public Page<UserDTO> listUsers(@RequestParam("limit") Integer limit,
-                                   @RequestParam("size") Integer size) throws Exception {
-        return userFacade.listUsers(limit, size, getClient());
+                                   @RequestParam("page") Integer page) throws Exception {
+        return userFacade.listUsers(limit, page, getClient());
     }
 
     @RequestMapping(path = PathConstants.ME, method = RequestMethod.GET)

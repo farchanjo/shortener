@@ -33,9 +33,9 @@ public class UserFacade {
         return user.me(client);
     }
 
-    public Page<UserDTO> listUsers(Integer limit, Integer size, UserDTO client) {
+    public Page<UserDTO> listUsers(Integer page, Integer size, UserDTO client) {
         if (!client.getRoles().equals(Roles.ADMIN))
             throw new NotAuthorizedException("You cannot list all users. You dont have permission for that");
-        return user.listUsers(limit, size);
+        return user.listUsers(page, size);
     }
 }
