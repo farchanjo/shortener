@@ -15,6 +15,7 @@ public class DomainDTO implements Serializable {
     private static final long serialVersionUID = 2434592629028454357L;
     private Long id;
     private String domain;
+    private String token;
     private Status status;
     private Date created;
     private Date modified;

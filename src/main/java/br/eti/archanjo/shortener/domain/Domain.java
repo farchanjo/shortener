@@ -9,6 +9,8 @@ import br.eti.archanjo.shortener.utils.parsers.DomainParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -48,5 +50,15 @@ public class Domain {
         }
         entity = domainRepository.save(entity);
         return DomainParser.toDTO(entity);
+    }
+
+    /**
+     * @param page  {@link Integer}
+     * @param limit {@link Integer }
+     * @return {@link Page<DomainDTO>}
+     */
+    public Page<DomainDTO> listAll(Integer page, Integer limit) {
+        Page<DomainEntity> entities = domainRepository.findAll(new PageRequest(page, limit));
+        return entities.map(DomainParser::toDTO);
     }
 }

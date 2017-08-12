@@ -8,6 +8,7 @@ import br.eti.archanjo.shortener.exceptions.NotAuthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -31,5 +32,15 @@ public class DomainFacade {
         if (!client.getRoles().equals(Roles.ADMIN))
             throw new NotAuthorizedException("You dont have access for this context. Only admins");
         return domain.create(domainDTO);
+    }
+
+    /**
+     * @param page   {@link Integer}
+     * @param limit  {@link Integer}
+     * @param client {@link UserDTO}
+     * @return {@link Page<DomainDTO>}
+     */
+    public Page<DomainDTO> listDomains(Integer page, Integer limit, UserDTO client) {
+        return domain.listAll(page, limit);
     }
 }
