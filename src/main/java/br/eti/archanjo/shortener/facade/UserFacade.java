@@ -3,6 +3,7 @@ package br.eti.archanjo.shortener.facade;
 import br.eti.archanjo.shortener.domain.User;
 import br.eti.archanjo.shortener.dtos.UserDTO;
 import br.eti.archanjo.shortener.enums.Roles;
+import br.eti.archanjo.shortener.exceptions.MissingArgumentException;
 import br.eti.archanjo.shortener.exceptions.NotAuthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -20,7 +21,10 @@ public class UserFacade {
         this.user = user;
     }
 
-    public UserDTO create(UserDTO userDTO, UserDTO client) {
+    public UserDTO create(UserDTO userDTO, UserDTO client) throws Exception {
+        if (userDTO.getPassword() == null && userDTO.getId() != null)
+            throw new MissingArgumentException("Missing password");
+
         if (!client.getRoles().equals(Roles.ADMIN))
             throw new NotAuthorizedException("You cannot list all users. You dont have permission for that");
         return user.create(userDTO);

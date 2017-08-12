@@ -45,9 +45,10 @@ public class User {
                     .name(userDTO.getName())
                     .roles(userDTO.getRoles())
                     .status(userDTO.getStatus())
-                    .password(HashUtils.sha256(userDTO.getPassword()))
                     .username(userDTO.getUsername())
                     .build();
+            if (userDTO.getPassword() != null)
+                user.setPassword(HashUtils.sha256(userDTO.getPassword()));
         }
         user = userRepository.save(user);
         return UserParser.toDTO(user);
