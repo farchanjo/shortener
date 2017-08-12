@@ -8,4 +8,5 @@ public class PathConstants {
     public static final String LOGIN = "/login";
     public static final String LOGOUT = "/logout";
     public static final String ME = "/me";
+    public static final String URLS = "/urls";
 }

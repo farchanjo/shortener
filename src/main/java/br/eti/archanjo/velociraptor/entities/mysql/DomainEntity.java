@@ -38,7 +38,7 @@ public class DomainEntity implements Serializable {
     private Status status;
 
     @OneToMany
-    private List<UrlsEntity> urls;
+    private List<UrlEntity> urls;
 
     @Column(name = "created", nullable = false)
     private Date created;

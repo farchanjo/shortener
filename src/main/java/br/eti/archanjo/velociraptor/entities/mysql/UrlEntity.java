@@ -14,7 +14,7 @@ import java.util.Date;
 @Setter
 @Table(name = "URLS")
 @Entity(name = "URLS")
-public class UrlsEntity implements Serializable {
+public class UrlEntity implements Serializable {
 
     private static final long serialVersionUID = 3949423743473962511L;
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,6 +24,9 @@ public class UrlsEntity implements Serializable {
 
     @Column(name = "shortValue")
     private String shortValue;
+
+    @Column(name = "destination")
+    private String destination;
 
     @Column(name = "status")
     @Enumerated(EnumType.ORDINAL)
