@@ -46,7 +46,7 @@ server:
   tomcat:
     remote-ip-header: X-Forwarded-For
 
-shortener:
+velociraptor:
   httplimits:
     limit: 100
     page: 0
