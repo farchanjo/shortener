@@ -2,10 +2,12 @@ package br.eti.archanjo.velociraptor.facade;
 
 import br.eti.archanjo.velociraptor.domain.Url;
 import br.eti.archanjo.velociraptor.dtos.UrlDTO;
+import br.eti.archanjo.velociraptor.enums.Status;
 import br.eti.archanjo.velociraptor.exceptions.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.net.URI;
@@ -40,5 +42,17 @@ public class UrlsFacade {
             throw new BadRequestException("URL is wrong");
 
         return url.generate(urlDTO);
+    }
+
+    /**
+     * @param page     {@link Integer}
+     * @param limit    {@link Integer}
+     * @param status   {@link Status}
+     * @param domainId {@link Long}
+     * @return {@link Page<UrlDTO>}
+     */
+    public Page<UrlDTO> listAll(Integer page, Integer limit,
+                                Status status, Long domainId) {
+        return url.listAll(page, limit, status, domainId);
     }
 }

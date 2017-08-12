@@ -32,7 +32,7 @@ public class DomainFacade {
     public DomainDTO create(DomainDTO domainDTO, UserDTO client) throws Exception {
         if (!client.getRoles().equals(Roles.ADMIN))
             throw new NotAuthorizedException("You dont have access for this context. Only admins");
-        return domain.create(domainDTO);
+        return domain.create(domainDTO, client);
     }
 
     /**
