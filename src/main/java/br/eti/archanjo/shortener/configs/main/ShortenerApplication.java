@@ -1,5 +1,7 @@
 package br.eti.archanjo.shortener.configs.main;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +19,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EntityScan("br.eti.archanjo.shortener.entities.mysql")
 @EnableMongoRepositories(basePackages = "br.eti.archanjo.shortener.repositories.mongo")
 public class ShortenerApplication implements CommandLineRunner {
+    private static Logger logger = LoggerFactory.getLogger(ShortenerApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(ShortenerApplication.class, args);
@@ -24,6 +27,6 @@ public class ShortenerApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+        logger.info("System loaded.");
     }
 }
