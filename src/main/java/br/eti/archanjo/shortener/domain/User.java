@@ -25,8 +25,32 @@ public class User {
         this.userRepository = userRepository;
     }
 
-    public UserDTO create() {
-        return null;
+    /**
+     * @param userDTO {@link UserDTO}
+     * @return {@link UserDTO}
+     */
+    public UserDTO create(UserDTO userDTO) {
+        UserEntity user;
+        if (userDTO.getId() != null) {
+            user = userRepository.findOne(userDTO.getId());
+            user.setName(userDTO.getName());
+            user.setRoles(userDTO.getRoles());
+            user.setEmail(userDTO.getEmail());
+            user.setPassword(HashUtils.sha256(userDTO.getPassword()));
+            user.setStatus(userDTO.getStatus());
+            user.setUsername(userDTO.getUsername());
+        } else {
+            user = UserEntity.builder()
+                    .email(userDTO.getEmail())
+                    .name(userDTO.getName())
+                    .roles(userDTO.getRoles())
+                    .status(userDTO.getStatus())
+                    .password(HashUtils.sha256(userDTO.getPassword()))
+                    .username(userDTO.getUsername())
+                    .build();
+        }
+        user = userRepository.save(user);
+        return UserParser.toDTO(user);
     }
 
     /**

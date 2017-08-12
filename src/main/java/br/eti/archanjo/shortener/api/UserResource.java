@@ -8,10 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = PathConstants.USERS, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -26,8 +23,8 @@ public class UserResource extends GenericResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public UserDTO createUser() throws Exception {
-        return userFacade.create(getClient());
+    public UserDTO createUser(@RequestBody UserDTO user) throws Exception {
+        return userFacade.create(user, getClient());
     }
 
     @RequestMapping(method = RequestMethod.GET)

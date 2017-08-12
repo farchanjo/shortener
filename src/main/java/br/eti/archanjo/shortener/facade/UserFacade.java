@@ -20,8 +20,10 @@ public class UserFacade {
         this.user = user;
     }
 
-    public UserDTO create(UserDTO client) {
-        return user.create();
+    public UserDTO create(UserDTO userDTO, UserDTO client) {
+        if (!client.getRoles().equals(Roles.ADMIN))
+            throw new NotAuthorizedException("You cannot list all users. You dont have permission for that");
+        return user.create(userDTO);
     }
 
     /**
