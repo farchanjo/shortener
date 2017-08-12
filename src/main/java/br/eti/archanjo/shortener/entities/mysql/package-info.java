@@ -1,1 +1,0 @@
-package br.eti.archanjo.shortener.entities.mysql;

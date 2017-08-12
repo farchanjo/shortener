@@ -1,4 +1,4 @@
-USE shortener;
+USE velociraptor;
 
 INSERT INTO `users` (`created`, `modified`, `name`, `password`, `email`, `role`, `status`, `username`)
 VALUES

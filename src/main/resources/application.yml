@@ -8,9 +8,9 @@ spring:
   profiles:
     active: default
   application:
-    name: shortener-service
+    name: velociraptor-service
   datasource:
-    url: jdbc:mysql://vm.services:3306/shortener?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&useTimezone=true&serverTimezone=UTC
+    url: jdbc:mysql://vm.services:3306/velociraptor?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&useTimezone=true&serverTimezone=UTC
     username: root
     password: q1w2e3
     driver-class-name: com.mysql.jdbc.Driver
@@ -23,7 +23,7 @@ spring:
   data:
     mongodb:
       host: vm.services
-      database: shortener
+      database: velociraptor
       repositories:
         enabled: true
   redis:
@@ -41,7 +41,7 @@ server:
   session:
     cookie:
       path: /
-      name: shortener
+      name: velociraptor
     persistent: true
   tomcat:
     remote-ip-header: X-Forwarded-For
