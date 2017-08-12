@@ -50,3 +50,4 @@ velociraptor:
   httplimits:
     limit: 100
     page: 0
+  default-redirect: http://www.skoob.com.br
