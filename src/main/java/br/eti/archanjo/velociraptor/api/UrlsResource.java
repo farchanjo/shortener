@@ -26,6 +26,6 @@ public class UrlsResource extends GenericResource {
 
     @RequestMapping(method = RequestMethod.POST)
     public UrlDTO urlsFacade(@RequestBody UrlDTO urlDTO) throws Exception {
-        return urlsFacade.generate(urlDTO, getClient());
+        return urlsFacade.generate(urlDTO);
     }
 }

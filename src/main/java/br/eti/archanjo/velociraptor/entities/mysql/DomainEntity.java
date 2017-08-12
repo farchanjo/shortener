@@ -37,6 +37,9 @@ public class DomainEntity implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private Status status;
 
+    @Column(name = "isSSL")
+    private boolean isSSL;
+
     @OneToMany
     private List<UrlEntity> urls;
 

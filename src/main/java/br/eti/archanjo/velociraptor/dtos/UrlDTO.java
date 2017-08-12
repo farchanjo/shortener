@@ -17,6 +17,7 @@ public class UrlDTO implements Serializable {
     private String shortValue;
     private String destination;
     private Status status;
+    private String completeUrl;
     private Long domainId;
     private Date expirationDate;
     private Long maxRequests;
