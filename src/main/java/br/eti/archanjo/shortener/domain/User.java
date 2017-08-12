@@ -76,12 +76,13 @@ public class User {
     }
 
     /**
-     * @param limit {@link Integer}
-     * @param size  {@link Integer}
+     * @param limit  {@link Integer}
+     * @param size   {@link Integer}
+     * @param status {@link Status}
      * @return {@link Page<UserDTO>}
      */
-    public Page<UserDTO> listUsers(Integer page, Integer size) {
-        Page<UserEntity> users = userRepository.findAll(new PageRequest(page, size));
+    public Page<UserDTO> listUsers(Integer page, Integer size, Status status) {
+        Page<UserEntity> users = userRepository.findAllByStatus(new PageRequest(page, size), status);
         return users.map(UserParser::toDTO);
     }
 }

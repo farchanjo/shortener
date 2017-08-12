@@ -14,7 +14,8 @@ import java.util.Date;
 @Getter
 @Setter
 @Table(name = "USERS", indexes = {
-        @Index(name = "userPassStatsIdx", columnList = "username,password,status")
+        @Index(name = "userPassStatsIdx", columnList = "username,password,status"),
+        @Index(name = "statusIdx", columnList = "status")
 })
 @Entity(name = "USERS")
 public class UserEntity implements Serializable {

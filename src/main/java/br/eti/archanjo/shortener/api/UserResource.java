@@ -2,6 +2,7 @@ package br.eti.archanjo.shortener.api;
 
 import br.eti.archanjo.shortener.constants.PathConstants;
 import br.eti.archanjo.shortener.dtos.UserDTO;
+import br.eti.archanjo.shortener.enums.Status;
 import br.eti.archanjo.shortener.facade.UserFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,8 +30,10 @@ public class UserResource extends GenericResource {
 
     @RequestMapping(method = RequestMethod.GET)
     public Page<UserDTO> listUsers(@RequestParam("limit") Integer limit,
-                                   @RequestParam("page") Integer page) throws Exception {
-        return userFacade.listUsers(page, limit, getClient());
+                                   @RequestParam("page") Integer page,
+                                   @RequestParam(value = "status", required = false,
+                                           defaultValue = "ENABLED") Status status) throws Exception {
+        return userFacade.listUsers(page, limit, status, getClient());
     }
 
     @RequestMapping(path = PathConstants.ME, method = RequestMethod.GET)

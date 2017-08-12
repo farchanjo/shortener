@@ -10,4 +10,6 @@ public interface UserRepository extends CrudRepository<UserEntity, Long> {
     UserEntity findByUsernameAndPasswordAndStatus(String username, String password, Status status);
 
     Page<UserEntity> findAll(Pageable page);
+
+    Page<UserEntity> findAllByStatus(Pageable page, Status status);
 }
