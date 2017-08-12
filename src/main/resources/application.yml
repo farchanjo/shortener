@@ -45,3 +45,8 @@ server:
     persistent: true
   tomcat:
     remote-ip-header: X-Forwarded-For
+
+shortener:
+  httplimits:
+    limit: 100
+    page: 0

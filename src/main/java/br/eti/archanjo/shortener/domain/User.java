@@ -10,6 +10,8 @@ import br.eti.archanjo.shortener.utils.parsers.UserParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -46,5 +48,15 @@ public class User {
         if (user == null)
             throw new NotFoundException("This user does not exist anymore");
         return UserParser.toDTO(user);
+    }
+
+    /**
+     * @param limit {@link Integer}
+     * @param size  {@link Integer}
+     * @return {@link Page<UserDTO>}
+     */
+    public Page<UserDTO> listUsers(Integer limit, Integer size) {
+        Page<UserEntity> users = userRepository.findAll(new PageRequest(limit, size));
+        return users.map(UserParser::toDTO);
     }
 }

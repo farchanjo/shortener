@@ -2,9 +2,12 @@ package br.eti.archanjo.shortener.facade;
 
 import br.eti.archanjo.shortener.domain.User;
 import br.eti.archanjo.shortener.dtos.UserDTO;
+import br.eti.archanjo.shortener.enums.Roles;
+import br.eti.archanjo.shortener.exceptions.NotAuthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -28,5 +31,11 @@ public class UserFacade {
      */
     public UserDTO me(UserDTO client) throws Exception {
         return user.me(client);
+    }
+
+    public Page<UserDTO> listUsers(Integer limit, Integer size, UserDTO client) {
+        if (!client.getRoles().equals(Roles.ADMIN))
+            throw new NotAuthorizedException("You cannot list all users. You dont have permission for that");
+        return user.listUsers(limit, size);
     }
 }
