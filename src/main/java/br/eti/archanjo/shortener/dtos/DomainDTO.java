@@ -19,4 +19,5 @@ public class DomainDTO implements Serializable {
     private Status status;
     private Date created;
     private Date modified;
+
 }

@@ -4,6 +4,7 @@ import br.eti.archanjo.shortener.domain.Domain;
 import br.eti.archanjo.shortener.dtos.DomainDTO;
 import br.eti.archanjo.shortener.dtos.UserDTO;
 import br.eti.archanjo.shortener.enums.Roles;
+import br.eti.archanjo.shortener.enums.Status;
 import br.eti.archanjo.shortener.exceptions.NotAuthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -37,10 +38,11 @@ public class DomainFacade {
     /**
      * @param page   {@link Integer}
      * @param limit  {@link Integer}
-     * @param client {@link UserDTO}
-     * @return {@link Page<DomainDTO>}
+     * @param status {@link Status}
+     * @param client {@link UserDTO}  @return {@link Page<DomainDTO>}
      */
-    public Page<DomainDTO> listDomains(Integer page, Integer limit, UserDTO client) {
-        return domain.listAll(page, limit);
+    public Page<DomainDTO> listDomains(Integer page, Integer limit,
+                                       Status status, UserDTO client) {
+        return domain.listAll(page, limit, status);
     }
 }

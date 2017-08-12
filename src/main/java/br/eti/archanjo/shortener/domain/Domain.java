@@ -2,6 +2,7 @@ package br.eti.archanjo.shortener.domain;
 
 import br.eti.archanjo.shortener.dtos.DomainDTO;
 import br.eti.archanjo.shortener.entities.mysql.DomainEntity;
+import br.eti.archanjo.shortener.enums.Status;
 import br.eti.archanjo.shortener.exceptions.BadRequestException;
 import br.eti.archanjo.shortener.exceptions.NotFoundException;
 import br.eti.archanjo.shortener.repositories.mysql.DomainRepository;
@@ -53,12 +54,13 @@ public class Domain {
     }
 
     /**
-     * @param page  {@link Integer}
-     * @param limit {@link Integer }
+     * @param page   {@link Integer}
+     * @param limit  {@link Integer }
+     * @param status {@link Status}
      * @return {@link Page<DomainDTO>}
      */
-    public Page<DomainDTO> listAll(Integer page, Integer limit) {
-        Page<DomainEntity> entities = domainRepository.findAll(new PageRequest(page, limit));
+    public Page<DomainDTO> listAll(Integer page, Integer limit, Status status) {
+        Page<DomainEntity> entities = domainRepository.findAllByStatus(new PageRequest(page, limit), status);
         return entities.map(DomainParser::toDTO);
     }
 }

@@ -13,7 +13,11 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Getter
 @Setter
-@Table(name = "DOMAINS")
+@Table(name = "DOMAINS", indexes = {
+        @Index(name = "statusIdx", columnList = "status"),
+        @Index(name = "statusDomainIdx", columnList = "domain,status"),
+        @Index(name = "tokenIdx", columnList = "token"),
+})
 @Entity(name = "DOMAINS")
 public class DomainEntity implements Serializable {
 
