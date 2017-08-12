@@ -3,6 +3,8 @@ package br.eti.archanjo.shortener.facade;
 import br.eti.archanjo.shortener.domain.Domain;
 import br.eti.archanjo.shortener.dtos.DomainDTO;
 import br.eti.archanjo.shortener.dtos.UserDTO;
+import br.eti.archanjo.shortener.enums.Roles;
+import br.eti.archanjo.shortener.exceptions.NotAuthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -19,7 +21,15 @@ public class DomainFacade {
         this.domain = domain;
     }
 
-    public DomainDTO create(UserDTO client) throws Exception {
-        return domain.create(client);
+    /**
+     * @param domainDTO {@link DomainDTO}
+     * @param client    {@link UserDTO}
+     * @return {@link DomainDTO}
+     * @throws Exception
+     */
+    public DomainDTO create(DomainDTO domainDTO, UserDTO client) throws Exception {
+        if (!client.getRoles().equals(Roles.ADMIN))
+            throw new NotAuthorizedException("You dont have access for this context. Only admins");
+        return domain.create(domainDTO);
     }
 }

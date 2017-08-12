@@ -41,9 +41,6 @@ public class UrlsEntity implements Serializable {
     @Column(name = "modified")
     private Date modified;
 
-    @ManyToOne
-    private DomainEntity domain;
-
     @PrePersist
     private void prePersist() {
         created = new Date();
