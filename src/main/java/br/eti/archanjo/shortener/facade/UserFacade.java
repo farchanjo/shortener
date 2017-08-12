@@ -20,4 +20,13 @@ public class UserFacade {
     public UserDTO create(UserDTO client) {
         return user.create();
     }
+
+    /**
+     * @param client {@link UserDTO}
+     * @return {@link UserDTO}
+     * @throws Exception
+     */
+    public UserDTO me(UserDTO client) throws Exception {
+        return user.me(client);
+    }
 }

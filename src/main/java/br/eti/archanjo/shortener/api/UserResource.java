@@ -27,4 +27,9 @@ public class UserResource extends GenericResource {
     public UserDTO createUser() throws Exception {
         return userFacade.create(getClient());
     }
+
+    @RequestMapping(path = PathConstants.ME, method = RequestMethod.GET)
+    public UserDTO me() throws Exception {
+        return userFacade.me(getClient());
+    }
 }
