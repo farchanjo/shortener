@@ -8,4 +8,8 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface UrlRepository extends CrudRepository<UrlEntity, Long> {
     Page<UrlEntity> findAllByDomainIdAndStatus(Pageable page, Long id, Status status);
+
+    UrlEntity findByShortValueAndStatus(String shortValue, Status status);
+
+    UrlEntity findByShortValue(String shortValue);
 }

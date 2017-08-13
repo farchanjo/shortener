@@ -12,7 +12,10 @@ import java.util.Date;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Getter
 @Setter
-@Table(name = "URLS")
+@Table(name = "URLS", indexes = {
+        @Index(name = "shortValueIdx", columnList = "shortValue"),
+        @Index(name = "shortAndStatusIdx", columnList = "shortValue,status")
+})
 @Entity(name = "URLS")
 public class UrlEntity implements Serializable {
 

@@ -42,21 +42,14 @@ public class Url {
                 .domain(domain)
                 .build();
         url = urlRepository.save(url);
-        UrlDTO dto = UrlParser.toDTO(url);
-        dto.setDomainId(domain.getId());
-        if (domain.isSSL()) {
-            dto.setCompleteUrl(String.format("https://%s/%s", domain.getDomain(), url.getShortValue()));
-        } else {
-            dto.setCompleteUrl(String.format("http://%s/%s", domain.getDomain(), url.getShortValue()));
-        }
-        return dto;
+        return UrlParser.toDTO(url);
     }
 
     /**
      * @param page     {@link Integer}
      * @param limit    {@link Integer}
      * @param status   {@link Status}
-     * @param domainId
+     * @param domainId {@link Long}
      * @return {@link Page<UrlDTO>}
      */
     public Page<UrlDTO> listAll(Integer page, Integer limit, Status status, Long domainId) {
