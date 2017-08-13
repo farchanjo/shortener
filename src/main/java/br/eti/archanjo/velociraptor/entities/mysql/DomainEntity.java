@@ -17,6 +17,7 @@ import java.util.List;
         @Index(name = "statusIdx", columnList = "status"),
         @Index(name = "statusDomainIdx", columnList = "domain,status"),
         @Index(name = "tokenIdx", columnList = "token"),
+        @Index(name = "domainIdx", columnList = "domain")
 })
 @Entity(name = "DOMAINS")
 public class DomainEntity implements Serializable {
@@ -48,9 +49,6 @@ public class DomainEntity implements Serializable {
 
     @Column(name = "modified", nullable = false)
     private Date modified;
-
-    @ManyToMany
-    private List<UserEntity> users;
 
     @PrePersist
     private void prePersist() {
