@@ -17,6 +17,7 @@ public class DomainDTO implements Serializable {
     private String domain;
     private String token;
     private Status status;
+    private boolean ssl;
     private Date created;
     private Date modified;
 

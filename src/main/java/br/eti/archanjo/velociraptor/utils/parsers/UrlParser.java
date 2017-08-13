@@ -10,7 +10,7 @@ public class UrlParser {
      * @return {@link UrlDTO}
      */
     public static UrlDTO toDTO(UrlEntity entity) {
-        return UrlDTO.builder()
+        UrlDTO dto = UrlDTO.builder()
                 .status(entity.getStatus())
                 .id(entity.getId())
                 .destination(entity.getDestination())
@@ -18,8 +18,17 @@ public class UrlParser {
                 .maxRequests(entity.getMaxRequests())
                 .shortValue(entity.getShortValue())
                 .created(entity.getCreated())
+                .domainId(entity.getDomain() != null ? entity.getDomain().getId() : null)
                 .modified(entity.getModified())
                 .build();
+        if (entity.getDomain() != null) {
+            if (entity.getDomain().isSSL()) {
+                dto.setCompleteUrl(String.format("https://%s/%s", entity.getDomain().getDomain(), entity.getShortValue()));
+            } else {
+                dto.setCompleteUrl(String.format("http://%s/%s", entity.getDomain().getDomain(), entity.getShortValue()));
+            }
+        }
+        return dto;
     }
 
     /**

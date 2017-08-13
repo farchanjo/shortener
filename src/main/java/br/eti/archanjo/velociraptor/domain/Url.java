@@ -61,6 +61,6 @@ public class Url {
      */
     public Page<UrlDTO> listAll(Integer page, Integer limit, Status status, Long domainId) {
         Page<UrlEntity> entities = urlRepository.findAllByDomainIdAndStatus(new PageRequest(page, limit), domainId, status);
-        return null;
+        return entities.map(UrlParser::toDTO);
     }
 }
