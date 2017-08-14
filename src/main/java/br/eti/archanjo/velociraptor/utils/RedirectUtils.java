@@ -12,10 +12,10 @@ public class RedirectUtils {
     }
 
     public static Request parseRequest(HttpServletRequest req) {
-        req.getScheme();
         return Request.builder()
                 .userAgent(req.getHeader("User-Agent"))
                 .uri(URI.create(String.format("%s://%s", req.getScheme(), req.getServerName())))
+                .referrer(req.getHeader("referrer"))
                 .ip(req.getHeader("X-Forwarded-For") == null ? req.getRemoteAddr() : req.getHeader("X-Forwarded-For"))
                 .build();
     }

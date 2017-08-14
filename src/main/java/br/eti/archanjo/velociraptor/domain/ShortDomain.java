@@ -20,15 +20,14 @@ import java.io.IOException;
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ShortDomain {
     private static Logger logger = LoggerFactory.getLogger(ShortDomain.class);
-
     private final RequestService requestService;
-
     private final UrlRepository urlRepository;
-
     private final PropertiesConfig config;
 
     @Autowired
-    public ShortDomain(RequestService requestService, UrlRepository urlRepository, PropertiesConfig config) {
+    public ShortDomain(RequestService requestService,
+                       UrlRepository urlRepository,
+                       PropertiesConfig config) {
         this.requestService = requestService;
         this.urlRepository = urlRepository;
         this.config = config;
