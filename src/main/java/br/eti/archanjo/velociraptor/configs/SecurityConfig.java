@@ -28,8 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/*").permitAll()
-                .anyRequest().fullyAuthenticated()
+                .antMatchers("/api/**").fullyAuthenticated()
+                .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .failureHandler(
@@ -38,9 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(
                         (request, response, authentication) -> response.sendError(200, "logged")
                 )
-                .loginPage(PathConstants.LOGIN).passwordParameter("password").usernameParameter("username").permitAll()
+                .loginPage(PathConstants.API + PathConstants.LOGIN).passwordParameter("password").usernameParameter("username").permitAll()
                 .and()
-                .logout().logoutUrl(PathConstants.LOGOUT).permitAll()
+                .logout().logoutUrl(PathConstants.API + PathConstants.LOGOUT).permitAll()
                 .invalidateHttpSession(true)
                 .logoutSuccessHandler(
                         (request, response, authentication) -> response.sendError(200, "logout ok")

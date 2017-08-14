@@ -12,7 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = PathConstants.USERS, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(path = PathConstants.API + PathConstants.USERS, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class UserResource extends GenericResource {
     private static Logger logger = LoggerFactory.getLogger(UserResource.class);
 
