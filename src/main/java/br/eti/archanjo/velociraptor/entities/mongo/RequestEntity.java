@@ -35,6 +35,6 @@ public class RequestEntity implements Serializable {
     @Field("referrer")
     private String referrer;
     @Field("created")
-    @Indexed(direction = IndexDirection.ASCENDING)
+    @Indexed(direction = IndexDirection.ASCENDING, expireAfterSeconds = 1296000)
     private Date created;
 }
