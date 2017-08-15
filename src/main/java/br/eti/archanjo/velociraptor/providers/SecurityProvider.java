@@ -34,12 +34,9 @@ public class SecurityProvider implements AuthenticationProvider {
 
     public Authentication authenticate(Authentication authentication)
             throws AuthenticationException {
-
-        UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
-
         UserEntity entity;
         try {
-            entity = user.authenticate(String.valueOf(auth.getPrincipal()), String.valueOf(auth.getCredentials()));
+            entity = user.authenticate(String.valueOf(authentication.getPrincipal()), String.valueOf(authentication.getCredentials()));
 
             if (entity == null) {
                 throw new NotFoundException(ExceptionConstants.USER_NOT_FOUND);
