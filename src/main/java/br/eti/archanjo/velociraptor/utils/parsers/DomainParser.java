@@ -16,7 +16,7 @@ public class DomainParser {
                 .token(entity.getToken())
                 .domain(entity.getDomain())
                 .created(entity.getCreated())
-                .ssl(entity.isSSL())
+                .ssl(entity.isSsl())
                 .modified(entity.getModified())
                 .build();
     }
@@ -31,7 +31,7 @@ public class DomainParser {
                 .id(dto.getId())
                 .token(dto.getToken())
                 .domain(dto.getDomain())
-                .isSSL(dto.isSsl())
+                .ssl(dto.isSsl())
                 .created(dto.getCreated())
                 .modified(dto.getModified())
                 .build();

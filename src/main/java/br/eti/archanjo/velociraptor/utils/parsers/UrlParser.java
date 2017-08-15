@@ -22,7 +22,7 @@ public class UrlParser {
                 .modified(entity.getModified())
                 .build();
         if (entity.getDomain() != null) {
-            if (entity.getDomain().isSSL()) {
+            if (entity.getDomain().isSsl()) {
                 dto.setCompleteUrl(String.format("https://%s/%s", entity.getDomain().getDomain(), entity.getShortValue()));
             } else {
                 dto.setCompleteUrl(String.format("http://%s/%s", entity.getDomain().getDomain(), entity.getShortValue()));

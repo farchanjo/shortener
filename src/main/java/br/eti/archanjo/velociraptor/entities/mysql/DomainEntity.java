@@ -31,15 +31,15 @@ public class DomainEntity implements Serializable {
     @Column(name = "domain", nullable = false)
     private String domain;
 
-    @Column(name = "token", nullable = false)
+    @Column(name = "token", nullable = false, unique = true)
     private String token;
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private Status status;
 
-    @Column(name = "isSSL")
-    private boolean isSSL;
+    @Column(name = "`ssl`")
+    private boolean ssl;
 
     @OneToMany
     private List<UrlEntity> urls;
