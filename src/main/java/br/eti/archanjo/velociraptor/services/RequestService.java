@@ -51,12 +51,14 @@ public class RequestService {
             if (entity.getExpirationDate() != null &&
                     Instant.now().isAfter(entity.getExpirationDate().toInstant())) {
                 entity.setStatus(Status.DISABLED);
+                urlRepository.save(entity);
                 logger.debug(String.format("%s disabled", id));
             }
             long total = requestRepository.countAllByUrlId(entity.getId());
             if (entity.getMaxRequests() != null &&
                     entity.getMaxRequests() > total) {
                 entity.setStatus(Status.DISABLED);
+                urlRepository.save(entity);
                 logger.debug(String.format("%s disabled", id));
             }
         }
