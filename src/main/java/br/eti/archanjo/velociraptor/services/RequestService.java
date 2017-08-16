@@ -53,6 +53,12 @@ public class RequestService {
                 entity.setStatus(Status.DISABLED);
                 logger.debug(String.format("%s disabled", id));
             }
+            long total = requestRepository.countAllByUrlId(entity.getId());
+            if (entity.getMaxRequests() != null &&
+                    entity.getMaxRequests() > total) {
+                entity.setStatus(Status.DISABLED);
+                logger.debug(String.format("%s disabled", id));
+            }
         }
     }
 
