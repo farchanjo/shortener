@@ -35,6 +35,10 @@ public class RequestService {
         this.requestRepository = requestRepository;
     }
 
+    /**
+     * @param request {@link HttpServletRequest}
+     * @param id      {@link String}
+     */
     @Async
     public void process(HttpServletRequest request, String id) {
         Request req = RedirectUtils.parseRequest(request);
