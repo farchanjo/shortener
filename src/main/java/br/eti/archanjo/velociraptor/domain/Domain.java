@@ -1,7 +1,6 @@
 package br.eti.archanjo.velociraptor.domain;
 
 import br.eti.archanjo.velociraptor.dtos.DomainDTO;
-import br.eti.archanjo.velociraptor.dtos.UserDTO;
 import br.eti.archanjo.velociraptor.entities.mysql.DomainEntity;
 import br.eti.archanjo.velociraptor.enums.Status;
 import br.eti.archanjo.velociraptor.exceptions.AlreadyExistsException;
@@ -67,5 +66,18 @@ public class Domain {
     public Page<DomainDTO> listAll(Integer page, Integer limit, Status status) {
         Page<DomainEntity> entities = domainRepository.findAllByStatus(new PageRequest(page, limit), status);
         return entities.map(DomainParser::toDTO);
+    }
+
+    /**
+     * @param domains {@link String}
+     * @param status  {@link Status}
+     * @return {@link DomainDTO}
+     * @throws NotFoundException
+     */
+    public DomainDTO findByDomain(String domains, Status status) throws NotFoundException {
+        DomainEntity entity = domainRepository.findByDomainAndStatus(domains, status);
+        if (entity == null)
+            throw new NotFoundException("This domain does not exist or disabled");
+        return DomainParser.toDTO(entity);
     }
 }

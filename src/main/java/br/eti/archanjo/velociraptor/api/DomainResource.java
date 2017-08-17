@@ -35,4 +35,11 @@ public class DomainResource extends GenericResource {
                                               defaultValue = "ENABLED") Status status) throws Exception {
         return domainFacade.listDomains(page, limit, status, getClient());
     }
+
+    @RequestMapping(path = PathConstants.FIND)
+    public DomainDTO listByDomain(@RequestParam("domain") String domain,
+                                  @RequestParam(value = "status", required = false, defaultValue = "ENABLED") Status status)
+            throws Exception {
+        return domainFacade.findByDomain(domain, status,getClient());
+    }
 }

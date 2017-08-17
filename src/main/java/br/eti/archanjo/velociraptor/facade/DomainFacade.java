@@ -6,6 +6,7 @@ import br.eti.archanjo.velociraptor.dtos.UserDTO;
 import br.eti.archanjo.velociraptor.enums.Roles;
 import br.eti.archanjo.velociraptor.enums.Status;
 import br.eti.archanjo.velociraptor.exceptions.NotAuthorizedException;
+import br.eti.archanjo.velociraptor.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -44,5 +45,15 @@ public class DomainFacade {
     public Page<DomainDTO> listDomains(Integer page, Integer limit,
                                        Status status, UserDTO client) {
         return domain.listAll(page, limit, status);
+    }
+
+    /**
+     * @param domains {@link String}
+     * @param status {@link Status}
+     * @param client {@link UserDTO}
+     * @return {@link DomainDTO}
+     */
+    public DomainDTO findByDomain(String domains, Status status, UserDTO client) throws NotFoundException {
+        return domain.findByDomain(domains, status);
     }
 }

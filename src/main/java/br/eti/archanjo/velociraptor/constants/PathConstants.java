@@ -10,4 +10,5 @@ public class PathConstants {
     public static final String ME = "/me";
     public static final String URLS = "/urls";
     public static final String API = "/api";
+    public static final String FIND = "/find";
 }

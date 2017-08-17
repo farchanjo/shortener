@@ -9,5 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 public interface DomainRepository extends CrudRepository<DomainEntity, Long> {
     Page<DomainEntity> findAllByStatus(Pageable page, Status status);
 
+    DomainEntity findByDomainAndStatus(String domain, Status status);
+
     Long countAllByDomainContains(String domain);
 }
