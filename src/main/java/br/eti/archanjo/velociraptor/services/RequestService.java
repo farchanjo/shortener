@@ -7,6 +7,7 @@ import br.eti.archanjo.velociraptor.pojo.Request;
 import br.eti.archanjo.velociraptor.repositories.mongo.RequestRepository;
 import br.eti.archanjo.velociraptor.repositories.mysql.UrlRepository;
 import br.eti.archanjo.velociraptor.utils.RedirectUtils;
+import com.newrelic.api.agent.Trace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,7 @@ public class RequestService {
      * @param id      {@link String}
      */
     @Async
+    @Trace(metricName = "RequestService{process}", async = true, dispatcher = true)
     public void process(HttpServletRequest request, String id) {
         Request req = RedirectUtils.parseRequest(request);
         checkForDisable(id);
