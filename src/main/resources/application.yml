@@ -51,3 +51,4 @@ velociraptor:
     limit: 100
     page: 0
   default-redirect: http://www.skoob.com.br
+  udger-d-b-path: /Users/fabricio/IdeaProjects/velociraptor/src/main/resources/udgerdb_v3.dat
