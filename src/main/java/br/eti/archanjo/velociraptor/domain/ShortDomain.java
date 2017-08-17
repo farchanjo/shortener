@@ -60,4 +60,8 @@ public class ShortDomain {
             logger.warn("ShortDomain{doRedirect}", e);
         }
     }
+
+    public void doRoot(HttpServletResponse response) throws IOException {
+        response.sendRedirect(config.getDefaultRedirect().toString());
+    }
 }
