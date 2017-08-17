@@ -15,7 +15,7 @@ import java.net.URI;
 public class PropertiesConfig {
     private HttpLimits httplimits;
     private URI defaultRedirect;
-    private String udgerDBPath;
+    private Udger udger;
 
     @AllArgsConstructor(access = AccessLevel.PUBLIC)
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
@@ -24,5 +24,13 @@ public class PropertiesConfig {
     public static class HttpLimits {
         private int limit;
         private int page;
+    }
+
+    @AllArgsConstructor(access = AccessLevel.PUBLIC)
+    @NoArgsConstructor(access = AccessLevel.PUBLIC)
+    @Getter
+    @Setter
+    public static class Udger {
+        private String dbPath;
     }
 }

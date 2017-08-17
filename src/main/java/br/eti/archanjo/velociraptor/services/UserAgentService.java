@@ -30,7 +30,7 @@ public class UserAgentService {
 
     @PostConstruct
     private void createParser() {
-        udgerParser = new UdgerParser(config.getUdgerDBPath());
+        udgerParser = new UdgerParser(config.getUdger().getDbPath());
     }
 
     /**
