@@ -37,4 +37,18 @@ public class RequestEntity implements Serializable {
     @Field("created")
     @Indexed(direction = IndexDirection.ASCENDING, expireAfterSeconds = 15228000)
     private Date created;
+
+    @Override
+    public String toString() {
+        return "RequestEntity{" +
+                "userAgent='" + userAgent + '\'' +
+                ", ip='" + ip + '\'' +
+                ", urlId=" + urlId +
+                ", domainId=" + domainId +
+                ", shortValue='" + shortValue + '\'' +
+                ", domain='" + domain + '\'' +
+                ", referrer='" + referrer + '\'' +
+                ", created=" + created +
+                '}';
+    }
 }

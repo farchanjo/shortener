@@ -1,7 +1,10 @@
 package br.eti.archanjo.velociraptor.configs.main;
 
+import br.eti.archanjo.velociraptor.services.UserAgentService;
+import br.eti.archanjo.velociraptor.utils.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,6 +28,9 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 public class ShortenerApplication implements CommandLineRunner {
     private static Logger logger = LoggerFactory.getLogger(ShortenerApplication.class);
 
+    @Autowired
+    private UserAgentService agentService;
+
     public static void main(String[] args) {
         SpringApplication.run(ShortenerApplication.class, args);
     }
@@ -32,5 +38,7 @@ public class ShortenerApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         logger.info("SYSTEM Loaded.");
+        for (int i = 0; i < 100; i++)
+            logger.info(RandomUtils.getRequest().toString());
     }
 }
