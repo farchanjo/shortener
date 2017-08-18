@@ -6,6 +6,7 @@ import br.eti.archanjo.velociraptor.enums.Status;
 import br.eti.archanjo.velociraptor.pojo.Request;
 import br.eti.archanjo.velociraptor.repositories.mongo.RequestRepository;
 import br.eti.archanjo.velociraptor.repositories.mysql.UrlRepository;
+import br.eti.archanjo.velociraptor.utils.RandomUtils;
 import br.eti.archanjo.velociraptor.utils.RedirectUtils;
 import com.newrelic.api.agent.Trace;
 import org.slf4j.Logger;
@@ -18,7 +19,11 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
@@ -87,6 +92,21 @@ public class RequestService {
                     .created(new Date())
                     .build();
             requestRepository.save(requestEntity);
+        }
+    }
+
+    /**
+     * Generate data
+     */
+    public void generateData() {
+        List<RequestEntity> data = new ArrayList<>();
+        Instant now = Instant.now();
+        for (int i = 0; i < TimeUnit.DAYS.toSeconds(2); i++) {
+            for (int a = 0; a < 100; a++) {
+                data.add(RandomUtils.getRequest(Date.from(now.plus(i, ChronoUnit.SECONDS))));
+            }
+            requestRepository.save(data);
+            data.clear();
         }
     }
 }
