@@ -11,7 +11,6 @@ import java.io.Serializable;
 @Setter
 public class UdgerIp implements Serializable {
     private static final long serialVersionUID = -4499007724004168507L;
-    private String ip;
     private int ipVer = 0;
     private String ipClassification;
     private String ipClassificationCode;

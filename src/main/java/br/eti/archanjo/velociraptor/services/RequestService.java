@@ -95,7 +95,6 @@ public class RequestService {
     private void save(Request request, String id) throws SQLException, UnknownHostException {
         UrlEntity entity = urlRepository.findByShortValue(id);
         if (entity != null) {
-            logger.info(request.toString());
             RequestEntity requestEntity = RequestEntity.builder()
                     .urlId(entity.getId())
                     .ip(request.getIp())

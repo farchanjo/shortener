@@ -11,7 +11,6 @@ import java.io.Serializable;
 @Setter
 public class UdgerUa implements Serializable {
     private static final long serialVersionUID = -4499007724004168507L;
-    private String uaString;
     private Integer clientId;
     private Integer classId;
     private String uaClass;
