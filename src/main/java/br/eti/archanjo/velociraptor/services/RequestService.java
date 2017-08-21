@@ -108,7 +108,15 @@ public class RequestService {
                     .build();
             try {
                 requestEntity.setUa(mapper.map(userAgentService.parseUa(request.getUserAgent()), UdgerUa.class));
+            } catch (Exception e) {
+                logger.debug("RequestService{save}", e);
+            }
+            try {
                 requestEntity.setUip(mapper.map(userAgentService.parseIp(request.getIp()), UdgerIp.class));
+            } catch (Exception e) {
+                logger.debug("RequestService{save}", e);
+            }
+            try {
                 geoIPService.parse(request.getIp());
             } catch (Exception e) {
                 logger.debug("RequestService{save}", e);
