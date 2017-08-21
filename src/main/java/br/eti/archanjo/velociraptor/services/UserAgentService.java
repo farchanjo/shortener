@@ -39,7 +39,7 @@ public class UserAgentService {
      * @throws SQLException
      * @throws UnknownHostException
      */
-    private UdgerIpResult parseIp(String ip)
+    public UdgerIpResult parseIp(String ip)
             throws SQLException, UnknownHostException {
         return udgerParser.parseIp(ip);
     }
@@ -50,7 +50,7 @@ public class UserAgentService {
      * @throws SQLException
      * @throws UnknownHostException
      */
-    private UdgerUaResult parseUa(String ua)
+    public UdgerUaResult parseUa(String ua)
             throws SQLException, UnknownHostException {
         return udgerParser.parseUa(ua);
     }

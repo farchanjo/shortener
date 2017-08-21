@@ -1,5 +1,7 @@
 package br.eti.archanjo.velociraptor.entities.mongo;
 
+import br.eti.archanjo.velociraptor.pojo.UdgerIp;
+import br.eti.archanjo.velociraptor.pojo.UdgerUa;
 import lombok.*;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -34,6 +36,10 @@ public class RequestEntity implements Serializable {
     private String domain;
     @Field("referrer")
     private String referrer;
+    @Field("ua")
+    private UdgerUa ua;
+    @Field("uip")
+    private UdgerIp uip;
     @Field("created")
     @Indexed(direction = IndexDirection.ASCENDING, expireAfterSeconds = 15228000)
     private Date created;

@@ -4,11 +4,14 @@ import br.eti.archanjo.velociraptor.entities.mongo.RequestEntity;
 import br.eti.archanjo.velociraptor.entities.mysql.UrlEntity;
 import br.eti.archanjo.velociraptor.enums.Status;
 import br.eti.archanjo.velociraptor.pojo.Request;
+import br.eti.archanjo.velociraptor.pojo.UdgerIp;
+import br.eti.archanjo.velociraptor.pojo.UdgerUa;
 import br.eti.archanjo.velociraptor.repositories.mongo.RequestRepository;
 import br.eti.archanjo.velociraptor.repositories.mysql.UrlRepository;
 import br.eti.archanjo.velociraptor.utils.RandomUtils;
 import br.eti.archanjo.velociraptor.utils.RedirectUtils;
 import com.newrelic.api.agent.Trace;
+import org.dozer.DozerBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.UnknownHostException;
+import java.sql.SQLException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -34,11 +39,17 @@ public class RequestService {
 
     private final RequestRepository requestRepository;
 
+    private final UserAgentService userAgentService;
+
+    private final DozerBeanMapper mapper;
+
     @Autowired
     public RequestService(UrlRepository urlRepository,
-                          RequestRepository requestRepository) {
+                          RequestRepository requestRepository, UserAgentService userAgentService, DozerBeanMapper mapper) {
         this.urlRepository = urlRepository;
         this.requestRepository = requestRepository;
+        this.userAgentService = userAgentService;
+        this.mapper = mapper;
     }
 
     /**
@@ -48,9 +59,13 @@ public class RequestService {
     @Async
     @Trace(metricName = "RequestService{process}", async = true, dispatcher = true)
     public void process(HttpServletRequest request, String id) {
-        Request req = RedirectUtils.parseRequest(request);
-        checkForDisable(id);
-        save(req, id);
+        try {
+            Request req = RedirectUtils.parseRequest(request);
+            checkForDisable(id);
+            save(req, id);
+        } catch (Exception e) {
+            logger.error("RequestService{process}", e);
+        }
     }
 
     /**
@@ -79,7 +94,7 @@ public class RequestService {
      * @param request {@link Request}
      * @param id      {@link String}
      */
-    private void save(Request request, String id) {
+    private void save(Request request, String id) throws SQLException, UnknownHostException {
         UrlEntity entity = urlRepository.findByShortValue(id);
         if (entity != null) {
             RequestEntity requestEntity = RequestEntity.builder()
@@ -89,6 +104,8 @@ public class RequestService {
                     .userAgent(request.getUserAgent())
                     .domainId(entity.getDomain().getId())
                     .domain(entity.getDomain().getDomain())
+                    .ua(mapper.map(userAgentService.parseUa(request.getUserAgent()), UdgerUa.class))
+                    .uip(mapper.map(userAgentService.parseIp(request.getIp()), UdgerIp.class))
                     .created(new Date())
                     .build();
             requestRepository.save(requestEntity);
