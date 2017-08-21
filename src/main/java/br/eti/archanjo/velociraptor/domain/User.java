@@ -6,7 +6,7 @@ import br.eti.archanjo.velociraptor.enums.Status;
 import br.eti.archanjo.velociraptor.exceptions.NotFoundException;
 import br.eti.archanjo.velociraptor.repositories.mysql.UserRepository;
 import br.eti.archanjo.velociraptor.utils.HashUtils;
-import br.eti.archanjo.velociraptor.utils.parsers.UserParser;
+import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -20,9 +20,12 @@ public class User {
 
     private final UserRepository userRepository;
 
+    private final DozerBeanMapper mapper;
+
     @Autowired
-    public User(UserRepository userRepository) {
+    public User(UserRepository userRepository, DozerBeanMapper mapper) {
         this.userRepository = userRepository;
+        this.mapper = mapper;
     }
 
     /**
@@ -51,7 +54,7 @@ public class User {
                 user.setPassword(HashUtils.sha256(userDTO.getPassword()));
         }
         user = userRepository.save(user);
-        return UserParser.toDTO(user);
+        return mapper.map(user, UserDTO.class);
     }
 
     /**
@@ -72,7 +75,7 @@ public class User {
         UserEntity user = userRepository.findOne(client.getId());
         if (user == null)
             throw new NotFoundException("This user does not exist anymore");
-        return UserParser.toDTO(user);
+        return mapper.map(user, UserDTO.class);
     }
 
     /**
@@ -83,6 +86,6 @@ public class User {
      */
     public Page<UserDTO> listUsers(Integer page, Integer size, Status status) {
         Page<UserEntity> users = userRepository.findAllByStatus(new PageRequest(page, size), status);
-        return users.map(UserParser::toDTO);
+        return users.map(source -> mapper.map(source, UserDTO.class));
     }
 }

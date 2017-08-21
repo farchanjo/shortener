@@ -2,9 +2,10 @@ package br.eti.archanjo.velociraptor.providers;
 
 import br.eti.archanjo.velociraptor.constants.ExceptionConstants;
 import br.eti.archanjo.velociraptor.domain.User;
+import br.eti.archanjo.velociraptor.dtos.UserDTO;
 import br.eti.archanjo.velociraptor.entities.mysql.UserEntity;
 import br.eti.archanjo.velociraptor.exceptions.NotFoundException;
-import br.eti.archanjo.velociraptor.utils.parsers.UserParser;
+import org.dozer.DozerBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,12 @@ public class SecurityProvider implements AuthenticationProvider {
 
     private final User user;
 
+    private final DozerBeanMapper mapper;
+
     @Autowired
-    public SecurityProvider(User user) {
+    public SecurityProvider(User user, DozerBeanMapper mapper) {
         this.user = user;
+        this.mapper = mapper;
     }
 
     public Authentication authenticate(Authentication authentication)
@@ -45,7 +49,7 @@ public class SecurityProvider implements AuthenticationProvider {
             throw new BadCredentialsException(ExceptionConstants.PASSWORD_DOES_NOT_MATCH);
         }
 
-        return new UsernamePasswordAuthenticationToken(UserParser.toDTO(entity), null, Collections.singletonList(new SimpleGrantedAuthority(entity.getRoles().name())));
+        return new UsernamePasswordAuthenticationToken(mapper.map(entity, UserDTO.class), null, Collections.singletonList(new SimpleGrantedAuthority(entity.getRoles().name())));
     }
 
     public boolean supports(Class<?> authentication) {

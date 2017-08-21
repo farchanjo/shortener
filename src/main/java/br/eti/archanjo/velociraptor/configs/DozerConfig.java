@@ -13,8 +13,7 @@ public class DozerConfig {
     public DozerBeanMapper dozerMapper() {
         List<String> mappingFiles = Arrays.asList(
                 "dozer-global-configuration.xml",
-                "dozer-bean-mappings.xml"
-        );
+                "dozer-mapping.xml");
 
         DozerBeanMapper dozerBean = new DozerBeanMapper();
         dozerBean.setMappingFiles(mappingFiles);
