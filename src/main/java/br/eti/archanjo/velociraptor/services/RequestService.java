@@ -111,7 +111,7 @@ public class RequestService {
                 requestEntity.setUip(mapper.map(userAgentService.parseIp(request.getIp()), UdgerIp.class));
                 geoIPService.parse(request.getIp());
             } catch (Exception e) {
-                logger.warn("RequestService{save}", e);
+                logger.debug("RequestService{save}", e);
             }
             requestRepository.save(requestEntity);
         }
