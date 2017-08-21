@@ -5,12 +5,12 @@ import br.eti.archanjo.velociraptor.configs.PropertiesConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.udger.parser.UdgerIpResult;
 import org.udger.parser.UdgerParser;
 import org.udger.parser.UdgerUaResult;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -26,18 +26,12 @@ public class UserAgentService {
     @Autowired
     public UserAgentService(PropertiesConfig config) {
         this.config = config;
-    }
-
-    @PostConstruct
-    private void createParser() {
         udgerParser = new UdgerParser(config.getUdger().getDbPath());
     }
 
     /**
      * @param ip {@link String}
      * @return {@link UdgerIpResult}
-     * @throws SQLException
-     * @throws UnknownHostException
      */
     public UdgerIpResult parseIp(String ip)
             throws SQLException, UnknownHostException {
@@ -47,8 +41,6 @@ public class UserAgentService {
     /**
      * @param ua {@link String}
      * @return {@link UdgerUaResult}
-     * @throws SQLException
-     * @throws UnknownHostException
      */
     public UdgerUaResult parseUa(String ua)
             throws SQLException, UnknownHostException {
@@ -59,5 +51,5 @@ public class UserAgentService {
     private void shutDown() throws IOException {
         udgerParser.close();
     }
-    
+
 }

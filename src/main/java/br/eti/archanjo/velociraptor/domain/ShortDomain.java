@@ -5,6 +5,7 @@ import br.eti.archanjo.velociraptor.entities.mysql.UrlEntity;
 import br.eti.archanjo.velociraptor.enums.Status;
 import br.eti.archanjo.velociraptor.repositories.mysql.UrlRepository;
 import br.eti.archanjo.velociraptor.services.RequestService;
+import br.eti.archanjo.velociraptor.utils.RedirectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class ShortDomain {
                 /*
                  * Sending to persist the request.
                  */
-                requestService.process(request, id);
+                requestService.process(RedirectUtils.parseRequest(request), id);
 
                 response.sendRedirect(entity.getDestination());
             } else {

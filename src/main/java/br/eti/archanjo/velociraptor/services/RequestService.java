@@ -9,7 +9,6 @@ import br.eti.archanjo.velociraptor.pojo.UdgerUa;
 import br.eti.archanjo.velociraptor.repositories.mongo.RequestRepository;
 import br.eti.archanjo.velociraptor.repositories.mysql.UrlRepository;
 import br.eti.archanjo.velociraptor.utils.RandomUtils;
-import br.eti.archanjo.velociraptor.utils.RedirectUtils;
 import com.newrelic.api.agent.Trace;
 import org.dozer.DozerBeanMapper;
 import org.slf4j.Logger;
@@ -58,11 +57,10 @@ public class RequestService {
      */
     @Async
     @Trace(metricName = "RequestService{process}", async = true, dispatcher = true)
-    public void process(HttpServletRequest request, String id) {
+    public void process(Request request, String id) {
         try {
-            Request req = RedirectUtils.parseRequest(request);
             checkForDisable(id);
-            save(req, id);
+            save(request, id);
         } catch (Exception e) {
             logger.error("RequestService{process}", e);
         }
@@ -97,6 +95,7 @@ public class RequestService {
     private void save(Request request, String id) throws SQLException, UnknownHostException {
         UrlEntity entity = urlRepository.findByShortValue(id);
         if (entity != null) {
+            logger.info(request.toString());
             RequestEntity requestEntity = RequestEntity.builder()
                     .urlId(entity.getId())
                     .ip(request.getIp())
