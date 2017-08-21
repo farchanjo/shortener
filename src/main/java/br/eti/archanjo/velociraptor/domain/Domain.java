@@ -7,7 +7,9 @@ import br.eti.archanjo.velociraptor.exceptions.AlreadyExistsException;
 import br.eti.archanjo.velociraptor.exceptions.BadRequestException;
 import br.eti.archanjo.velociraptor.exceptions.NotFoundException;
 import br.eti.archanjo.velociraptor.repositories.mysql.DomainRepository;
-import br.eti.archanjo.velociraptor.utils.parsers.DomainParser;
+import org.dozer.DozerBeanMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -20,13 +22,15 @@ import java.util.UUID;
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class Domain {
+    private static Logger logger = LoggerFactory.getLogger(Domain.class);
 
     private final DomainRepository domainRepository;
-
+    private final DozerBeanMapper mapper;
 
     @Autowired
-    public Domain(DomainRepository domainRepository) {
+    public Domain(DomainRepository domainRepository, DozerBeanMapper mapper) {
         this.domainRepository = domainRepository;
+        this.mapper = mapper;
     }
 
     /**
@@ -54,7 +58,7 @@ public class Domain {
             entity.setToken(UUID.randomUUID().toString());
         }
         entity = domainRepository.save(entity);
-        return DomainParser.toDTO(entity);
+        return mapper.map(entity, DomainDTO.class);
     }
 
     /**
@@ -65,7 +69,7 @@ public class Domain {
      */
     public Page<DomainDTO> listAll(Integer page, Integer limit, Status status) {
         Page<DomainEntity> entities = domainRepository.findAllByStatus(new PageRequest(page, limit), status);
-        return entities.map(DomainParser::toDTO);
+        return entities.map(source -> mapper.map(source, DomainDTO.class));
     }
 
     /**
@@ -78,6 +82,6 @@ public class Domain {
         DomainEntity entity = domainRepository.findByDomainAndStatus(domains, status);
         if (entity == null)
             throw new NotFoundException("This domain does not exist or disabled");
-        return DomainParser.toDTO(entity);
+        return mapper.map(entity, DomainDTO.class);
     }
 }
