@@ -20,8 +20,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.UnknownHostException;
-import java.sql.SQLException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -42,13 +40,17 @@ public class RequestService {
 
     private final DozerBeanMapper mapper;
 
+    private final GeoIPService geoIPService;
+
     @Autowired
     public RequestService(UrlRepository urlRepository,
-                          RequestRepository requestRepository, UserAgentService userAgentService, DozerBeanMapper mapper) {
+                          RequestRepository requestRepository, UserAgentService userAgentService,
+                          DozerBeanMapper mapper, GeoIPService geoIPService) {
         this.urlRepository = urlRepository;
         this.requestRepository = requestRepository;
         this.userAgentService = userAgentService;
         this.mapper = mapper;
+        this.geoIPService = geoIPService;
     }
 
     /**
@@ -92,7 +94,7 @@ public class RequestService {
      * @param request {@link Request}
      * @param id      {@link String}
      */
-    private void save(Request request, String id) throws SQLException, UnknownHostException {
+    private void save(Request request, String id) {
         UrlEntity entity = urlRepository.findByShortValue(id);
         if (entity != null) {
             RequestEntity requestEntity = RequestEntity.builder()
@@ -102,10 +104,15 @@ public class RequestService {
                     .userAgent(request.getUserAgent())
                     .domainId(entity.getDomain().getId())
                     .domain(entity.getDomain().getDomain())
-                    .ua(mapper.map(userAgentService.parseUa(request.getUserAgent()), UdgerUa.class))
-                    .uip(mapper.map(userAgentService.parseIp(request.getIp()), UdgerIp.class))
                     .created(new Date())
                     .build();
+            try {
+                requestEntity.setUa(mapper.map(userAgentService.parseUa(request.getUserAgent()), UdgerUa.class));
+                requestEntity.setUip(mapper.map(userAgentService.parseIp(request.getIp()), UdgerIp.class));
+                geoIPService.parse(request.getIp());
+            } catch (Exception e) {
+                logger.error("RequestService{save}", e);
+            }
             requestRepository.save(requestEntity);
         }
     }

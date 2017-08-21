@@ -16,6 +16,7 @@ public class PropertiesConfig {
     private HttpLimits httplimits;
     private URI defaultRedirect;
     private Udger udger;
+    private GeoIP geoip;
 
     @AllArgsConstructor(access = AccessLevel.PUBLIC)
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
@@ -31,6 +32,14 @@ public class PropertiesConfig {
     @Getter
     @Setter
     public static class Udger {
+        private String dbPath;
+    }
+
+    @AllArgsConstructor(access = AccessLevel.PUBLIC)
+    @NoArgsConstructor(access = AccessLevel.PUBLIC)
+    @Getter
+    @Setter
+    public static class GeoIP {
         private String dbPath;
     }
 }
